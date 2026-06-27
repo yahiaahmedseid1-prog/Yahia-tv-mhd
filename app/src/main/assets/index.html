@@ -10,11 +10,11 @@
             --card-bg: #111422;
             --card-hover: #171c30;
             --border-color: #1e243a;
-            --gold-accent: #ffb300;
-            --gold-glow: rgba(255, 179, 0, 0.35);
+            --gold-accent: #00c853; /* الأخضر الزمردي المميز بدلاً من الأصفر */
+            --gold-glow: rgba(0, 200, 83, 0.35);
             --cyan-accent: #00b0ff;
             --cyan-glow: rgba(0, 176, 255, 0.35);
-            --bundle-bg: linear-gradient(135deg, #1c150c 0%, #0d1a29 100%);
+            --bundle-bg: linear-gradient(135deg, #091c10 0%, #0d1a29 100%);
             --bundle-border: linear-gradient(90deg, var(--gold-accent), var(--cyan-accent));
             --text-white: #f5f7fc;
             --text-muted: #8e95b3;
@@ -125,7 +125,7 @@
             margin-bottom: 16px;
             border: 1.5px solid transparent;
             background-clip: padding-box;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 179, 0, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 200, 83, 0.08);
             text-align: center;
             overflow: hidden;
         }
@@ -153,7 +153,7 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            background: linear-gradient(90deg, rgba(255, 179, 0, 0.2), rgba(0, 176, 255, 0.2));
+            background: linear-gradient(90deg, rgba(0, 200, 83, 0.2), rgba(0, 176, 255, 0.2));
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: #fff;
             padding: 4px 12px;
@@ -164,9 +164,9 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 179, 0, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(255, 179, 0, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 179, 0, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 6px rgba(0, 200, 83, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); }
         }
 
         .bundle-title {
@@ -354,7 +354,7 @@
         .download-card:hover {
             transform: translateY(-3px);
             background-color: var(--card-hover);
-            border-color: rgba(255, 179, 0, 0.25);
+            border-color: rgba(0, 200, 83, 0.25);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
@@ -381,7 +381,7 @@
             border-radius: 10px;
             object-fit: cover;
             border: 1.5px solid var(--gold-accent);
-            box-shadow: 0 2px 8px rgba(255, 179, 0, 0.15);
+            box-shadow: 0 2px 8px rgba(0, 200, 83, 0.15);
         }
 
         .download-card.player .card-info img {
@@ -403,8 +403,8 @@
         }
 
         .card-badge {
-            background-color: rgba(255, 179, 0, 0.1);
-            border: 1px solid rgba(255, 179, 0, 0.3);
+            background-color: rgba(0, 200, 83, 0.1);
+            border: 1px solid rgba(0, 200, 83, 0.3);
             color: var(--gold-accent);
             padding: 3px 8px;
             border-radius: 6px;
@@ -564,7 +564,7 @@
         }
 
         .guide-step:nth-child(odd) .step-badge {
-            background-color: rgba(255, 179, 0, 0.1);
+            background-color: rgba(0, 200, 83, 0.1);
             border: 1.5px solid var(--gold-accent);
             color: var(--gold-accent);
         }
@@ -668,7 +668,7 @@
         /* Open state */
         .faq-item.open {
             border-color: var(--gold-accent);
-            box-shadow: 0 3px 10px rgba(255, 179, 0, 0.06);
+            box-shadow: 0 3px 10px rgba(0, 200, 83, 0.06);
         }
 
         .faq-item.open .faq-trigger {
@@ -753,7 +753,7 @@
         }
 
         .btn-outline {
-            background-color: rgba(255, 179, 0, 0.04);
+            background-color: rgba(0, 200, 83, 0.04);
             color: var(--gold-accent);
             border: 1.5px solid var(--gold-accent);
             border-radius: 10px;
@@ -770,7 +770,7 @@
         }
 
         .btn-outline:hover {
-            background-color: rgba(255, 179, 0, 0.1);
+            background-color: rgba(0, 200, 83, 0.1);
             box-shadow: 0 3px 10px var(--gold-glow);
             transform: translateY(-1px);
         }
@@ -791,7 +791,7 @@
             bottom: 24px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background-color: #ffb300;
+            background-color: #00c853;
             color: #000;
             padding: 10px 20px;
             border-radius: 20px;
@@ -850,35 +850,6 @@
                 <img src="img_yahia_tv_logo.jpg" alt="YAHIA TV Logo">
             </div>
         </header>
-
-        <!-- HIGHLY PROMINENT INSTANT BUNDLE DOWNLOAD (At entry) -->
-        <section class="bundle-container">
-            <div class="bundle-header">
-                <div class="bundle-spark">
-                    <span>⚡ تنزيل متزامن فائق السرعة</span>
-                </div>
-                <h3 class="bundle-title">بضغطة واحدة: حمل الحزمة التشغيلية الكاملة</h3>
-            </div>
-            <p class="bundle-desc">لضمان عمل البث بنجاح وبأعلى جودة، يجب تثبيت كلا من تطبيق التلفزيون ومحرك التشغيل معاً. اضغط على الزر الذهبي لبدء تحميلهما فوراً!</p>
-            
-            <div class="bundle-logos">
-                <div class="bundle-logo-item tv">
-                    <img src="img_yahia_tv_logo.jpg" alt="Yahia TV Icon">
-                    <span>تطبيق YAHIA TV</span>
-                </div>
-                <div class="bundle-logo-item player">
-                    <img src="img_yahia_player_logo.jpg" alt="Yahia Player Icon">
-                    <span>مشغل YAHIA PLAYER</span>
-                </div>
-            </div>
-
-            <div class="bundle-actions">
-                <button onclick="downloadBoth()" class="btn-bundle btn-bundle-gold btn-bundle-all">
-                    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-                    تحميل التطبيق + المشغل معاً (بضغطة واحدة)
-                </button>
-            </div>
-        </section>
 
         <!-- Downloads Grid Section -->
         <div class="section-title">
@@ -1118,24 +1089,6 @@
                 item.classList.add('open');
                 answer.style.maxHeight = answer.scrollHeight + "px";
             }
-        }
-
-        // Sequential Dual Download feature (Highly Prominent on entry)
-        function downloadBoth() {
-            // First URL (YAHIA TV App)
-            const tvUrl = "https://www.mediafire.com/file/st0wz11ug19x3h2/Yahia_TV.apk/file";
-            // Second URL (YAHIA PLAYER)
-            const playerUrl = "https://www.mediafire.com/file/m26e0ajh3hu2yb4/YAHIA_Player.apk/file";
-
-            showToast("🚀 جاري بدء تحميل الحزمة المتكاملة...");
-            
-            // Open YAHIA TV in new window/tab
-            window.open(tvUrl, "_blank");
-
-            // Open YAHIA PLAYER with a small timeout to circumvent pop-up blocker mechanisms
-            setTimeout(() => {
-                window.open(playerUrl, "_blank");
-            }, 1000);
         }
 
         // Copy Links directly to clipboard
