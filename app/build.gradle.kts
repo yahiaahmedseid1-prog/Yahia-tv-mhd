@@ -128,3 +128,14 @@ dependencies {
   "ksp"(libs.androidx.room.compiler)
   "ksp"(libs.moshi.kotlin.codegen)
 }
+
+val copyWebAssets = tasks.register<Copy>("copyWebAssets") {
+    from(file("../"))
+    include("index.html", "img_tv_banner.jpg", "img_yahia_tv_logo.jpg", "img_yahia_player_logo.jpg")
+    into(file("src/main/assets"))
+}
+
+tasks.matching { it.name == "preBuild" }.configureEach {
+    dependsOn(copyWebAssets)
+}
+
