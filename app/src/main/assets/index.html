@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAHIA TV - الموقع الرسمي للتنزيل</title>
+    <style>
+        :root {
+            --bg-color: #090a10;
+            --card-bg: #141724;
+            --border-color: #23283d;
+            --gold-accent: #ffb300;
+            --gold-glow: rgba(255, 179, 0, 0.4);
+            --cyan-accent: #00b0ff;
+            --cyan-glow: rgba(0, 176, 255, 0.4);
+            --text-white: #f0f2fa;
+            --text-muted: #8b92ac;
+            --error-red: #ff5252;
+            --success-green: #00e676;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        /* Top Navigation Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            border: 1.5px solid var(--gold-accent);
+            object-fit: cover;
+        }
+
+        .header-title h1 {
+            font-size: 1.1rem;
+            color: var(--gold-accent);
+            font-weight: bold;
+        }
+
+        .header-title p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .share-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:active {
+            transform: scale(0.9);
+            border-color: var(--gold-accent);
+        }
+
+        .share-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--gold-accent);
+        }
+
+        /* Hero Showcase Section */
+        .hero {
+            margin: 16px;
+            position: relative;
+            height: 220px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.4) 50%, transparent 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            left: 16px;
+            z-index: 2;
+            text-align: right;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(255, 179, 0, 0.2);
+            border: 1px solid rgba(255, 179, 0, 0.4);
+            color: var(--gold-accent);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .hero-badge svg {
+            width: 10px;
+            height: 10px;
+            fill: var(--gold-accent);
+        }
+
+        .hero h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 4px;
+        }
+
+        .hero p {
+            font-size: 0.8rem;
+            color: rgba(240, 242, 250, 0.8);
+        }
+
+        /* Section Title Container */
+        .section-title {
+            padding: 16px 16px 8px 16px;
+            text-align: right;
+        }
+
+        .section-title h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--gold-accent);
+        }
+
+        .section-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Downloads Cards Container */
+        .download-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 179, 0, 0.25);
+            border-radius: 16px;
+            margin: 8px 16px 16px 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .download-card.player {
+            border-color: rgba(0, 176, 255, 0.25);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+
+        .card-info img {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 179, 0, 0.5);
+        }
+
+        .download-card.player .card-info img {
+            border-color: rgba(0, 176, 255, 0.5);
+        }
+
+        .card-title-text h4 {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-white);
+        }
+
+        .card-title-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .card-badge {
+            background-color: rgba(255, 179, 0, 0.15);
+            border: 0.5px solid rgba(255, 179, 0, 0.5);
+            color: var(--gold-accent);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .download-card.player .card-badge {
+            background-color: rgba(0, 176, 255, 0.15);
+            border-color: rgba(0, 176, 255, 0.5);
+            color: var(--cyan-accent);
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: rgba(240, 242, 250, 0.9);
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        .card-specs {
+            display: flex;
+            justify-content: flex-start;
+            gap: 8px;
+            flex-direction: row-reverse;
+        }
+
+        .spec-chip {
+            background-color: var(--border-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: rgba(240, 242, 250, 0.8);
+        }
+
+        /* Red Warning Box for Player */
+        .warning-box {
+            background-color: rgba(255, 82, 82, 0.12);
+            border: 0.5px solid rgba(255, 82, 82, 0.4);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-direction: row-reverse;
+        }
+
+        .warning-box svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--error-red);
+            flex-shrink: 0;
+        }
+
+        .warning-box p {
+            font-size: 0.75rem;
+            color: var(--error-red);
+            font-weight: 500;
+            text-align: right;
+        }
+
+        /* Premium CTA Buttons */
+        .btn {
+            width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 800;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-gold {
+            background-color: var(--gold-accent);
+            color: var(--bg-color);
+            box-shadow: 0 4px 15px var(--gold-glow);
+        }
+
+        .btn-gold:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px var(--gold-glow);
+        }
+
+        .btn-cyan {
+            background-color: var(--cyan-accent);
+            color: var(--bg-color);
+            box-shadow: 0 4px 15px var(--cyan-glow);
+        }
+
+        .btn-cyan:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px var(--cyan-glow);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--bg-color);
+        }
+
+        /* Detailed Installation Guide Section */
+        .guide-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin: 8px 16px 16px 16px;
+            padding: 16px;
+        }
+
+        .guide-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            flex-direction: row-reverse;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .step-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .guide-step:nth-child(odd) .step-badge {
+            background-color: rgba(255, 179, 0, 0.2);
+            border: 1.5px solid var(--gold-accent);
+            color: var(--gold-accent);
+        }
+
+        .guide-step:nth-child(even) .step-badge {
+            background-color: rgba(0, 176, 255, 0.2);
+            border: 1.5px solid var(--cyan-accent);
+            color: var(--cyan-accent);
+        }
+
+        .step-content {
+            flex-grow: 1;
+            text-align: right;
+        }
+
+        .step-content h5 {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .guide-step:nth-child(odd) .step-content h5 {
+            color: var(--gold-accent);
+        }
+
+        .guide-step:nth-child(even) .step-content h5 {
+            color: var(--cyan-accent);
+        }
+
+        .step-content p {
+            font-size: 0.8rem;
+            color: rgba(240, 242, 250, 0.8);
+            line-height: 1.5;
+        }
+
+        .guide-divider {
+            width: 1.5px;
+            height: 20px;
+            background-color: rgba(139, 146, 172, 0.3);
+            margin-right: 15px;
+        }
+
+        /* FAQ Accordion Section */
+        .faq-container {
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .faq-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-trigger {
+            width: 100%;
+            padding: 14px;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: right;
+            font-size: 0.85rem;
+            font-weight: bold;
+            gap: 12px;
+        }
+
+        .faq-trigger span {
+            flex-grow: 1;
+        }
+
+        .faq-trigger svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-muted);
+            transition: transform 0.3s ease, fill 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: rgba(9, 10, 16, 0.4);
+        }
+
+        .faq-answer-content {
+            padding: 14px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: rgba(240, 242, 250, 0.85);
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        /* Open FAQ styling */
+        .faq-item.open {
+            border-color: var(--gold-accent);
+        }
+
+        .faq-item.open .faq-trigger {
+            color: var(--gold-accent);
+        }
+
+        .faq-item.open .faq-trigger svg {
+            transform: rotate(180deg);
+            fill: var(--gold-accent);
+        }
+
+        /* Specs Section Table */
+        .specs-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin: 16px;
+            padding: 16px;
+        }
+
+        .specs-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-direction: row-reverse;
+            margin-bottom: 12px;
+        }
+
+        .specs-header svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--cyan-accent);
+        }
+
+        .specs-header h4 {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--text-white);
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 0.5px solid rgba(35, 40, 61, 0.5);
+            font-size: 0.75rem;
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            color: var(--gold-accent);
+            font-weight: bold;
+            text-align: right;
+            width: 40%;
+        }
+
+        .spec-value {
+            color: rgba(240, 242, 250, 0.9);
+            text-align: left;
+            width: 60%;
+        }
+
+        /* Quick Action Clipboard Buttons */
+        .action-container {
+            padding: 0 16px;
+        }
+
+        .btn-outline {
+            background-color: var(--card-bg);
+            color: var(--gold-accent);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            height: 48px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:active {
+            background-color: rgba(255, 179, 0, 0.1);
+            border-color: var(--gold-accent);
+        }
+
+        .btn-outline svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--gold-accent);
+        }
+
+        /* Toast Popup Alert */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: var(--gold-accent);
+            color: var(--bg-color);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--bg-color);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 32px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        footer hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <button class="share-btn" onclick="shareLinks()" title="مشاركة روابط التطبيق والمشغل">
+            <svg viewBox="0 0 24 24">
+                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+            </svg>
+        </button>
+
+        <div class="header-logo">
+            <div class="header-title">
+                <h1>YAHIA TV</h1>
+                <p>بوابة التحميل والدعم الرسمي</p>
+            </div>
+            <img src="img_yahia_tv_logo.jpg" alt="YAHIA TV Logo">
+        </div>
+    </header>
+
+    <!-- Hero Showcase -->
+    <section class="hero">
+        <img src="img_tv_banner.jpg" alt="Smart Television UI">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                سينما وقنوات لايف مدمجة
+            </div>
+            <h2>YAHIA TV & PLAYER</h2>
+            <p>المنصة المتكاملة الأحدث لمشاهدة ممتعة ومستقرة للأندرويد</p>
+        </div>
+    </section>
+
+    <!-- Downloads Title -->
+    <div class="section-title">
+        <h3>باقة التحميل الرسمية</h3>
+        <p>قم بتحميل التطبيق والمشغل معاً لضمان العمل بنجاح</p>
+    </div>
+
+    <!-- Download Card 1: TV App -->
+    <div class="download-card">
+        <div class="card-header">
+            <div class="card-badge">الرئيسي</div>
+            <div class="card-info">
+                <div class="card-title-text">
+                    <h4>تطبيق YAHIA TV</h4>
+                    <span>الإصدار: v1.8.0 (الأحدث)</span>
+                </div>
+                <img src="img_yahia_tv_logo.jpg" alt="YAHIA TV Icon">
+            </div>
+        </div>
+        <p class="card-desc">بوابتك المتكاملة لمشاهدة جميع القنوات العربية والعالمية، الأفلام والمسلسلات بجودة عالية وبدون تقطيع.</p>
+        <div class="card-specs">
+            <div class="spec-chip">المساحة: 31.32 MB</div>
+            <div class="spec-chip">الصيغة: APK</div>
+        </div>
+        <a href="https://www.mediafire.com/file/st0wz11ug19x3h2/Yahia_TV.apk/file" target="_blank" class="btn btn-gold">
+            <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+            تحميل مباشر عبر MediaFire
+        </a>
+    </div>
+
+    <!-- Download Card 2: Player -->
+    <div class="download-card player">
+        <div class="card-header">
+            <div class="card-badge">إجباري للتشغيل</div>
+            <div class="card-info">
+                <div class="card-title-text">
+                    <h4>مشغل YAHIA PLAYER</h4>
+                    <span>الإصدار: v1.5.2 (الأحدث)</span>
+                </div>
+                <img src="img_yahia_player_logo.jpg" alt="YAHIA PLAYER Icon">
+            </div>
+        </div>
+        <p class="card-desc">محرك الفيديوهات والمسؤول عن فك ترميز قنوات البث المباشر. لا يعمل تطبيق YAHIA TV بدونه.</p>
+        <div class="card-specs">
+            <div class="spec-chip">المساحة: 22.51 MB</div>
+            <div class="spec-chip">الصيغة: APK</div>
+        </div>
+        
+        <div class="warning-box">
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+            <p>تنبيه ضروري جداً: لن يشتغل تطبيق YAHIA TV بدون هذا المشغل. يرجى تثبيت الاثنين معاً.</p>
+        </div>
+
+        <a href="https://www.mediafire.com/file/m26e0ajh3hu2yb4/YAHIA_Player.apk/file" target="_blank" class="btn btn-cyan">
+            <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+            تحميل مباشر عبر MediaFire
+        </a>
+    </div>
+
+    <!-- Installation Steps -->
+    <div class="section-title">
+        <h3>دليل التثبيت والتشغيل بالتفصيل</h3>
+        <p>اتبع الخطوات التالية بدقة لضمان عمل التطبيق بسلاسة</p>
+    </div>
+
+    <div class="guide-container">
+        <!-- Step 1 -->
+        <div class="guide-step">
+            <div class="step-badge">1</div>
+            <div class="step-content">
+                <h5>الخطوة الأولى: تحميل الملفين من الروابط</h5>
+                <p>انقر على زر التحميل المباشر لكل من "YAHIA TV" و "YAHIA PLAYER" بالأعلى، لتنزيل ملفات الـ APK بنجاح على هاتفك أندرويد.</p>
+            </div>
+        </div>
+        <div class="guide-divider"></div>
+
+        <!-- Step 2 -->
+        <div class="guide-step">
+            <div class="step-badge">2</div>
+            <div class="step-content">
+                <h5>الخطوة الثانية: تفعيل المصادر المجهولة</h5>
+                <p>اذهب إلى إعدادات الهاتف -> الأمان أو الخصوصية -> قم بتفعيل خيار "التثبيت من مصادر غير معروفة" للمتصفح الذي تستخدمه لتتمكن من تثبيت التطبيقات يدويًا.</p>
+            </div>
+        </div>
+        <div class="guide-divider"></div>
+
+        <!-- Step 3 -->
+        <div class="guide-step">
+            <div class="step-badge">3</div>
+            <div class="step-content">
+                <h5>الخطوة الثالثة: تثبيت المشغل أولاً</h5>
+                <p>اذهب لمدير الملفات أو مجلد التحميلات، ثم افتح ملف YAHIA PLAYER (بمساحة 22.51 ميجابايت) وقم بتثبيته. هذا المشغل يعمل كمحرك داخلي للبث المباشر وقنوات التلفاز.</p>
+            </div>
+        </div>
+        <div class="guide-divider"></div>
+
+        <!-- Step 4 -->
+        <div class="guide-step">
+            <div class="step-badge">4</div>
+            <div class="step-content">
+                <h5>الخطوة الرابعة: تثبيت YAHIA TV والتشغيل</h5>
+                <p>أخيرًا، قم بتثبيت ملف تطبيق YAHIA TV (بمساحة 31.32 ميجابايت). افتح التطبيق مباشرة وسيعمل معك فوراً وبأعلى كفاءة اعتمادًا على المشغل الذي قمت بتثبيته.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQs Accordion -->
+    <div class="section-title">
+        <h3>الأسئلة الشائعة وحل المشكلات</h3>
+        <p>إجابات وحلول سريعة لأكثر الاستفسارات شيوعاً</p>
+    </div>
+
+    <div class="faq-container">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)">
+                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                <span>لماذا يتطلب التطبيق تثبيت مشغل YAHIA PLAYER منفصلاً؟</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    تم تصميم مشغل YAHIA PLAYER كمحرك منفصل لفك ترميز صيغ قنوات التلفزيون المباشر بجودة 4K وفول إتش دي. هذا يضمن بقاء تطبيق التلفزيون خفيف المساحة ومستقر، ويقلل جداً من استهلاك بطارية الهاتف مع القنوات المشفرة.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)">
+                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                <span>يظهر لي تحذير "حظر بواسطة Play Protect" أثناء التثبيت، ماذا أفعل؟</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    هذا التحذير طبيعي جداً عند تثبيت تطبيقات من خارج متجر جوجل بلاي الرسمي. تطبيقنا آمن وخالٍ من أي فيروسات. لتخطي هذا التحذير، اضغط على "التفاصيل" ثم اختر "التثبيت على أي حال" (Install anyway) ليكتمل تثبيت التطبيق بنجاح.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)">
+                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                <span>أواجه خطأ "التطبيق ليس ثنائياً متوافقاً" أو "لم يتم تثبيت التطبيق"؟</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    أولاً: تأكد من تفعيل إعداد التثبيت من مصادر مجهولة. ثانياً: تأكد من خلو هاتفك من أي نسخة قديمة غير رسمية للتطبيق، وقم بمسح كاش التحميل، ثم تأكد من توفر مساحة خالية على ذاكرة تخزين الهاتف تزيد عن 100 ميجابايت.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+            <button class="faq-trigger" onclick="toggleFaq(this)">
+                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                <span>هل يعمل تطبيق YAHIA TV على شاشات التلفاز الذكية؟</span>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    نعم، كلاً من تطبيق YAHIA TV والمشغل يدعمان الشاشات التي تعمل بنظام Android TV وأجهزة Xiaomi Mi Box و Amazon Firestick بالكامل. يمكنك نسخ ملفات الـ APK إلى فلاش ميموري وتوصيلها بالتلفزيون وتثبيتهما بسهولة.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technical Specs -->
+    <div class="specs-card">
+        <div class="specs-header">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <h4>المواصفات التقنية ومتطلبات التشغيل</h4>
+        </div>
+        
+        <div class="spec-row">
+            <div class="spec-value">أندرويد موبايل + أندرويد تي في (Android 5.0 فأحدث)</div>
+            <div class="spec-label">نظام التشغيل المدعوم</div>
+        </div>
+        <div class="spec-row">
+            <div class="spec-value">حوالي 54 ميجابايت (التطبيق 31.32MB + المشغل 22.51MB)</div>
+            <div class="spec-label">مجموع المساحة المطلوبة</div>
+        </div>
+        <div class="spec-row">
+            <div class="spec-value">SD, HD, FHD, Ultra HD (4K)</div>
+            <div class="spec-label">دقة بث الفيديو المدعومة</div>
+        </div>
+        <div class="spec-row">
+            <div class="spec-value">آمن 100% ومفحوص تماماً ضد الفيروسات وضد البرمجيات الضارة</div>
+            <div class="spec-label">مستوى الحماية والأمان</div>
+        </div>
+        <div class="spec-row">
+            <div class="spec-value">مجاني بالكامل وبدون أي إعلانات منبثقة مزعجة</div>
+            <div class="spec-label">فئة ترخيص الاستخدام</div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="action-container">
+        <button class="btn-outline" onclick="copyLinks()" title="نسخ الروابط">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            نسخ روابط التحميل المباشرة
+        </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span id="toast-text">تم نسخ الروابط بنجاح!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <hr>
+        <p>تم التطوير والدعم بواسطة بوابة YAHIA TV الرسمية</p>
+        <p>جميع الحقوق محفوظة © 2026</p>
+    </footer>
+
+    <script>
+        // Toggle FAQ Accordions
+        function toggleFaq(button) {
+            const item = button.parentElement;
+            const answer = button.nextElementSibling;
+            const isOpen = item.classList.contains('open');
+
+            // Close all items
+            document.querySelectorAll('.faq-item').forEach(el => {
+                el.classList.remove('open');
+                el.querySelector('.faq-answer').style.maxHeight = null;
+            });
+
+            // If not open, open this one
+            if (!isOpen) {
+                item.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+        }
+
+        // Copy Links function
+        function copyLinks() {
+            const textToCopy = "تطبيق YAHIA TV: https://www.mediafire.com/file/st0wz11ug19x3h2/Yahia_TV.apk/file\nالمشغل YAHIA PLAYER: https://www.mediafire.com/file/m26e0ajh3hu2yb4/YAHIA_Player.apk/file";
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast("تم نسخ روابط التحميل المباشرة بنجاح!");
+            }).catch(() => {
+                // Fallback method for older engines
+                const el = document.createElement('textarea');
+                el.value = textToCopy;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                showToast("تم نسخ روابط التحميل المباشرة بنجاح!");
+            });
+        }
+
+        // Share Links function
+        function shareLinks() {
+            const shareData = {
+                title: 'تحميل تطبيق YAHIA TV والمشغل الرسمي',
+                text: '🌟 قم بتنزيل تطبيق البث الرائع YAHIA TV ومشغله الرسمي YAHIA PLAYER للأندرويد بروابط مباشرة مجاناً:\n\n1️⃣ تطبيق YAHIA TV (31.32 MB):\nhttps://www.mediafire.com/file/st0wz11ug19x3h2/Yahia_TV.apk/file\n\n2️⃣ مشغل YAHIA PLAYER (22.51 MB):\nhttps://www.mediafire.com/file/m26e0ajh3hu2yb4/YAHIA_Player.apk/file\n\n📺 مشاهدة ممتعة!',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData).catch(err => {
+                    console.log("Error sharing", err);
+                });
+            } else {
+                copyLinks();
+                showToast("رابط المشاركة منسوخ للحافظة!");
+            }
+        }
+
+        // Show Toast function
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toastText.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
